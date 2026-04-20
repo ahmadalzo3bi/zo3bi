@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zo3bi - خدمات احترافية | تصاميم وويب وهويات بصرية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #0a0a0a;
+            color: #e5e5e5;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding: 0 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.5), inset 0 0 20px rgba(239, 68, 68, 0.1); }
+            50% { box-shadow: 0 0 40px rgba(239, 68, 68, 0.8), inset 0 0 40px rgba(239, 68, 68, 0.2); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Background Elements */
+        .bg-orbs {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: pulse 5s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(217, 119, 6, 0.1));
+            top: 100px;
+            right: 50px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(0, 0, 0, 0.5));
+            bottom: 100px;
+            left: 100px;
+            animation-delay: 1.5s;
+        }
+
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(135deg, rgba(217, 119, 6, 0.1), rgba(239, 68, 68, 0.05));
+            top: 50%;
+            right: 30%;
+            animation-delay: 3s;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.7), transparent);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(239, 68, 68, 0.25);
+            box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.8);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-logo {
+            position: relative;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        .nav-logo::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            border-radius: 0.75rem;
+            animation: shimmer 3s infinite;
+        }
+
+        .nav-logo span {
+            background: linear-gradient(135deg, #fef3c7, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            font-size: 1.5rem;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-brand-text {
+            display: none;
+        }
+
+        @media (min-width: 640px) {
+            .nav-brand-text {
+                display: block;
+            }
+
+            .nav-brand-name {
+                color: white;
+                font-weight: 900;
+                font-size: 1.5rem;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .nav-brand-subtitle {
+                background: linear-gradient(90deg, #ef4444, #fbbf24);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                font-size: 0.75rem;
+                font-weight: 700;
+            }
+        }
+
+        .nav-links {
+            display: none;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .nav-link {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #d1d5db;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            padding-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #fbbf24;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #dc2626, #fbbf24);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-discord {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            font-weight: 900;
+            padding: 0.75rem 2rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.4);
+            cursor: pointer;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-discord::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-discord:hover {
+            background: linear-gradient(135deg, #b91c1c, #991b1b);
+            box-shadow: 0 0 50px rgba(239, 68, 68, 0.7);
+            transform: translateY(-2px);
+        }
+
+        .nav-discord:hover::before {
+            left: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding-top: 200px;
+            padding-bottom: 150px;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(239, 68, 68, 0.1) 0%, transparent 70%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(239, 68, 68, 0.08));
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            border-radius: 9999px;
+            margin-bottom: 2.5rem;
+            animation: slideIn 0.8s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge span {
+            font-size: 0.95rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #fca5a5, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-accent {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero-accent-line {
+            width: 200px;
+            height: 8px;
+            background: linear-gradient(90deg, transparent, #dc2626, #fbbf24, #dc2626, transparent);
+            border-radius: 9999px;
+            box-shadow: 0 0 50px rgba(239, 68, 68, 0.8), 0 0 100px rgba(217, 119, 6, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            line-height: 1.1;
+            font-family: 'Poppins', sans-serif;
+            animation: slideIn 1s ease-out 0.2s both;
+        }
+
+        @media (min-width: 640px) {
+            .hero-title {
+                font-size: 5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-title {
+                font-size: 6.5rem;
+            }
+        }
+
+        .hero-title-white {
+            color: white;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-title-gradient {
+            background: linear-gradient(90deg, #ef4444, #dc2626, #fbbf24, #dc2626, #ef4444);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #d1d5db;
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            animation: slideIn 1.2s ease-out 0.4s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+            animation: slideIn 1.4s ease-out 0.6s both;
+        }
+
+        @media (min-width: 640px) {
+            .hero-buttons {
+                flex-direction: row;
+            }
+        }
+
+        .btn {
+            padding: 1.25rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 900;
+            border: none;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            font-family: 'Cairo', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.5);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #b91c1c, #991b1b);
+            box-shadow: 0 0 60px rgba(239, 68, 68, 0.8);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            border: 2px solid rgba(239, 68, 68, 0.6);
+            color: #fbbf24;
+            background: transparent;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: #dc2626;
+            color: white;
+        }
+
+        .hero-socials {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            animation: slideIn 1.6s ease-out 0.8s both;
+        }
+
+        .social-link {
+            text-decoration: none;
+            color: #9ca3af;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .social-link:hover {
+            transform: translateY(-8px);
+        }
+
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(217, 119, 6, 0.1));
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            font-size: 1.75rem;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.1);
+        }
+
+        .social-link:hover .social-icon {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(217, 119, 6, 0.3));
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.5);
+            border-color: rgba(239, 68, 68, 0.6);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 5rem 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9));
+            border-top: 1px solid rgba(239, 68, 68, 0.2);
+            border-bottom: 1px solid rgba(239, 68, 68, 0.2);
+            position: relative;
+            z-index: 5;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(0, 0, 0, 0.5));
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 1rem;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(239, 68, 68, 0.6);
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .stat-value {
+            font-size: 2.25rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #ef4444, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: #9ca3af;
+            font-weight: 700;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 10rem 0;
+            position: relative;
+            z-index: 5;
+        }
+
+        .section-header {
+            margin-bottom: 6rem;
+            text-align: center;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(239, 68, 68, 0.08));
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            border-radius: 9999px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-badge span {
+            font-size: 0.95rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #fca5a5, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .section-title-white {
+            color: white;
+        }
+
+        .section-title-gradient {
+            background: linear-gradient(90deg, #ef4444, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            color: #9ca3af;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .service-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(0, 0, 0, 0.6));
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 1.5rem;
+            padding: 3rem 2.5rem;
+            transition: all 0.4s;
+            overflow: hidden;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .service-card:hover {
+            border-color: rgba(239, 68, 68, 0.7);
+            box-shadow: 0 0 60px rgba(239, 68, 68, 0.4);
+            transform: translateY(-10px);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card-corner {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(to bottom left, rgba(239, 68, 68, 0.15), transparent);
+            border-radius: 0 0 3rem 0;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .service-card:hover .service-card-corner {
+            opacity: 1;
+        }
+
+        .service-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.4), rgba(239, 68, 68, 0.15));
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+            font-size: 3rem;
+            transition: all 0.4s;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .service-card:hover .service-icon {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.6), rgba(239, 68, 68, 0.3));
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.4);
+        }
+
+        .service-subtitle {
+            color: #fbbf24;
+            font-size: 0.95rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+
+        .service-title {
+            font-size: 2rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .service-description {
+            color: #d1d5db;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .service-price-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(239, 68, 68, 0.1));
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price-item {
+            text-align: center;
+        }
+
+        .price-label {
+            color: #9ca3af;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-value {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #ef4444, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .delivery-value {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #fca5a5;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+
+        .service-features li {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: #d1d5db;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            color: #fbbf24;
+            font-weight: 900;
+            flex-shrink: 0;
+            font-size: 1.25rem;
+        }
+
+        .service-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .service-btn:hover {
+            background: linear-gradient(135deg, #b91c1c, #991b1b);
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .service-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 10rem 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9));
+            border-top: 1px solid rgba(239, 68, 68, 0.2);
+            position: relative;
+            z-index: 5;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .process-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .process-card {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(0, 0, 0, 0.5));
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 1.25rem;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-card:hover {
+            border-color: rgba(239, 68, 68, 0.6);
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .process-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-weight: 900;
+            font-size: 1.75rem;
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.6);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .process-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .process-title {
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .process-description {
+            color: #9ca3af;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 10rem 0;
+            position: relative;
+            z-index: 5;
+        }
+
+        .contact-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (min-width: 768px) {
+            .contact-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(0, 0, 0, 0.5));
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 1.25rem;
+            padding: 2.5rem;
+            transition: all 0.3s;
+        }
+
+        .contact-card:hover {
+            border-color: rgba(239, 68, 68, 0.6);
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .contact-card-content {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(239, 68, 68, 0.1));
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 2.5rem;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .contact-info h3 {
+            color: white;
+            font-weight: 900;
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+        }
+
+        .contact-info p {
+            color: #fbbf24;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .contact-info span {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        .cta-box {
+            position: relative;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(0, 0, 0, 0.6));
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            border-radius: 1.5rem;
+            padding: 4rem 3rem;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            inset: -0.5px;
+            background: linear-gradient(135deg, #dc2626, #fbbf24);
+            opacity: 0;
+            z-index: -1;
+            border-radius: 1.5rem;
+            transition: opacity 0.3s;
+        }
+
+        .cta-box:hover::before {
+            opacity: 0.2;
+        }
+
+        .cta-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            animation: bounce 1s infinite;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-description {
+            color: #d1d5db;
+            margin-bottom: 2.5rem;
+            font-size: 1.2rem;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), black);
+            border-top: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 5rem 0 2rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.6);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        .footer-logo span {
+            background: linear-gradient(135deg, #fef3c7, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+        }
+
+        .footer-brand-name {
+            color: white;
+            font-weight: 900;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+        }
+
+        .footer-brand-subtitle {
+            background: linear-gradient(90deg, #ef4444, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .footer-description {
+            color: #9ca3af;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .footer-section h4 {
+            color: white;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: #fbbf24;
+            transform: translateX(-5px);
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-social-link {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(217, 119, 6, 0.1));
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.5rem;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .footer-social-link:hover {
+            color: #fbbf24;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.4), rgba(217, 119, 6, 0.2));
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.3);
+        }
+
+        .footer-divider {
+            border-top: 1px solid rgba(239, 68, 68, 0.2);
+            padding-top: 2rem;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 1.5s infinite;
+        }
+
+        .scroll-indicator-inner {
+            width: 32px;
+            height: 52px;
+            border: 2px solid rgba(239, 68, 68, 0.6);
+            border-radius: 9999px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 0.75rem 0;
+        }
+
+        .scroll-indicator-dot {
+            width: 5px;
+            height: 10px;
+            background: linear-gradient(to bottom, #dc2626, #fbbf24);
+            border-radius: 9999px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Orbs -->
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <div class="nav-brand">
+                    <div class="nav-logo">
+                        <span>Z</span>
+                    </div>
+                    <div class="nav-brand-text">
+                        <div class="nav-brand-name">zo3bi</div>
+                        <div class="nav-brand-subtitle">Creative Excellence</div>
+                    </div>
+                </div>
+                <div class="nav-links">
+                    <a class="nav-link" onclick="scrollToSection('services')">الخدمات</a>
+                    <a class="nav-link" onclick="scrollToSection('process')">العملية</a>
+                    <a class="nav-link" onclick="scrollToSection('contact')">التواصل</a>
+                    <button class="nav-discord" onclick="openDiscord()">
+                        💬 الديسكورد
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span>✨</span>
+                    <span>خدمات احترافية عالية الجودة</span>
+                </div>
+
+                <div class="hero-accent">
+                    <div class="hero-accent-line"></div>
+                </div>
+
+                <h1 class="hero-title">
+                    <span class="hero-title-white">خدمات</span>
+                    <span class="hero-title-gradient">احترافية متقدمة</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    نقدم خدمات تصميم وويب احترافية بأعلى معايير الجودة العالمية مع ضمان الرضا الكامل
+                </p>
+
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="scrollToSection('services')">
+                        ⚡ اطلب خدمة الآن
+                    </button>
+                    <button class="btn btn-secondary" onclick="openDiscord()">
+                        💬 انضم للديسكورد
+                    </button>
+                </div>
+
+                <div class="hero-socials">
+                    <a href="https://kick.com/zo3bi" target="_blank" class="social-link" title="Kick">
+                        <div class="social-icon">📺</div>
+                    </a>
+                    <a href="https://www.facebook.com/gmzo3bimastr/" target="_blank" class="social-link" title="Facebook">
+                        <div class="social-icon">f</div>
+                    </a>
+                    <a href="https://www.tiktok.com/@a.z43?_r=1&_t=ZS-95hXO4KZeHX" target="_blank" class="social-link" title="TikTok">
+                        <div class="social-icon">♪</div>
+                    </a>
+                    <a href="https://youtube.com/@a.z43?si=TP2a0HibrqnGfCBA" target="_blank" class="social-link" title="YouTube">
+                        <div class="social-icon">📹</div>
+                    </a>
+                    <a href="https://www.instagram.com/ahmad7alzoubi?igsh=MTg2bnlkMzE2ZDBu&utm_source=qr" target="_blank" class="social-link" title="Instagram">
+                        <div class="social-icon">📷</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="scroll-indicator-inner">
+                <div class="scroll-indicator-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">👑</div>
+                    <div class="stat-value">150+</div>
+                    <div class="stat-label">مشروع منجز</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-value">98%</div>
+                    <div class="stat-label">عميل راضي</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-value">5+</div>
+                    <div class="stat-label">سنوات الخبرة</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💡</div>
+                    <div class="stat-value">دائماً</div>
+                    <div class="stat-label">دعم 24/7</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <span>✨</span>
+                    <span>الخدمات المتخصصة</span>
+                </div>
+                <h2 class="section-title">
+                    <span class="section-title-white">خدماتنا</span>
+                    <span class="section-title-gradient">الاحترافية</span>
+                </h2>
+                <p class="section-subtitle">
+                    نقدم خدمات متخصصة بأعلى معايير الجودة العالمية مع ضمان الرضا الكامل
+                </p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Service 1: Design -->
+                <div class="service-card">
+                    <div class="service-card-corner"></div>
+                    <div class="service-icon">🎨</div>
+                    <div class="service-subtitle">جرافيك ديزاين</div>
+                    <h3 class="service-title">تصاميم احترافية</h3>
+                    <p class="service-description">تصاميم جرافيك عالية الجودة للبث والمحتوى</p>
+                    
+                    <div class="service-price-box">
+                        <div class="price-item">
+                            <div class="price-label">السعر</div>
+                            <div class="price-value">$50</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="price-label">المدة</div>
+                            <div class="delivery-value">3-5 أيام</div>
+                        </div>
+                    </div>
+
+                    <ul class="service-features">
+                        <li>تصاميم بث مخصصة وديناميكية</li>
+                        <li>صور غلاف احترافية بدقة 4K</li>
+                        <li>شعارات وهويات بصرية متكاملة</li>
+                        <li>رسوميات متحركة واحترافية</li>
+                        <li>تصاميم وسائط اجتماعية متعددة</li>
+                        <li>مواد ترويجية احترافية وعصرية</li>
+                    </ul>
+
+                    <button class="service-btn" onclick="openDiscord()">
+                        💬 فتح تذكرة في الديسكورد
+                    </button>
+                </div>
+
+                <!-- Service 2: Website -->
+                <div class="service-card">
+                    <div class="service-card-corner"></div>
+                    <div class="service-icon">🌐</div>
+                    <div class="service-subtitle">ويب ديفلوبمنت</div>
+                    <h3 class="service-title">مواقع احترافية</h3>
+                    <p class="service-description">بناء مواقع ويب احترافية وحديثة وسريعة</p>
+                    
+                    <div class="service-price-box">
+                        <div class="price-item">
+                            <div class="price-label">السعر</div>
+                            <div class="price-value">$50</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="price-label">المدة</div>
+                            <div class="delivery-value">7-10 أيام</div>
+                        </div>
+                    </div>
+
+                    <ul class="service-features">
+                        <li>تصميم مخصص وفريد 100%</li>
+                        <li>متجاوب على جميع الأجهزة</li>
+                        <li>سرعة تحميل فائقة جداً</li>
+                        <li>SEO محسّن للمحركات</li>
+                        <li>لوحة تحكم احترافية</li>
+                        <li>دعم فني دائم ومستمر</li>
+                    </ul>
+
+                    <button class="service-btn" onclick="openDiscord()">
+                        💬 فتح تذكرة في الديسكورد
+                    </button>
+                </div>
+
+                <!-- Service 3: Branding -->
+                <div class="service-card">
+                    <div class="service-card-corner"></div>
+                    <div class="service-icon">⭐</div>
+                    <div class="service-subtitle">براندينج شامل</div>
+                    <h3 class="service-title">هوية بصرية</h3>
+                    <p class="service-description">بناء هوية بصرية متكاملة لعلامتك التجارية</p>
+                    
+                    <div class="service-price-box">
+                        <div class="price-item">
+                            <div class="price-label">السعر</div>
+                            <div class="price-value">$50+</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="price-label">المدة</div>
+                            <div class="delivery-value">10-14 يوم</div>
+                        </div>
+                    </div>
+
+                    <ul class="service-features">
+                        <li>شعار احترافي وفريد</li>
+                        <li>دليل العلامة التجارية الكامل</li>
+                        <li>نظام ألوان موحد واحترافي</li>
+                        <li>جميع المواد الترويجية</li>
+                        <li>نماذج وقوالب مخصصة</li>
+                        <li>استشارة تسويقية مجانية</li>
+                    </ul>
+
+                    <button class="service-btn" onclick="openDiscord()">
+                        💬 فتح تذكرة في الديسكورد
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="process">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-title-white">عملية</span>
+                    <span class="section-title-gradient">العمل</span>
+                </h2>
+                <p class="section-subtitle">
+                    نتبع عملية احترافية منظمة لضمان أفضل النتائج
+                </p>
+            </div>
+
+            <div class="process-grid">
+                <div class="process-card">
+                    <div class="process-number">01</div>
+                    <div class="process-icon">💬</div>
+                    <h3 class="process-title">استشارة مجانية</h3>
+                    <p class="process-description">نتحدث عن احتياجاتك وأهدافك بالتفصيل</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">02</div>
+                    <div class="process-icon">📋</div>
+                    <h3 class="process-title">التخطيط والتصميم</h3>
+                    <p class="process-description">نضع خطة عمل شاملة وتصميم أولي</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">03</div>
+                    <div class="process-icon">⚙️</div>
+                    <h3 class="process-title">التنفيذ الاحترافي</h3>
+                    <p class="process-description">تنفيذ العمل بأعلى معايير الجودة</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">04</div>
+                    <div class="process-icon">🚀</div>
+                    <h3 class="process-title">التسليم والدعم</h3>
+                    <p class="process-description">تسليم العمل مع دعم فني دائم</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div style="max-width: 1024px; margin: 0 auto;">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-title-white">جاهز</span>
+                        <span class="section-title-gradient">للبدء؟</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        انضم إلى سيرفر الديسكورد واطلب الخدمة التي تحتاجها
+                    </p>
+                </div>
+
+                <div class="contact-cards">
+                    <div class="contact-card">
+                        <div class="contact-card-content">
+                            <div class="contact-icon">✉️</div>
+                            <div class="contact-info">
+                                <h3>البريد الإلكتروني</h3>
+                                <p>contact@zo3bi.com</p>
+                                <span>للعلانات والشراكات</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-card-content">
+                            <div class="contact-icon">💬</div>
+                            <div class="contact-info">
+                                <h3>الديسكورد</h3>
+                                <p onclick="openDiscord()" style="cursor: pointer; color: #fbbf24;">انضم للسيرفر</p>
+                                <span>للدعم الفني والطلبات</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cta-box">
+                    <div class="cta-icon">🚀</div>
+                    <h3 class="cta-title">ابدأ مشروعك الآن</h3>
+                    <p class="cta-description">
+                        انضم إلى مئات العملاء الراضين واستمتع بخدمات احترافية عالية الجودة
+                    </p>
+                    <button class="btn btn-primary" onclick="openDiscord()">
+                        💬 انضم للديسكورد الآن
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <span>Z</span>
+                        </div>
+                        <div>
+                            <div class="footer-brand-name">zo3bi</div>
+                            <div class="footer-brand-subtitle">Creative Excellence</div>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        خدمات احترافية متخصصة في التصاميم والمواقع والهويات البصرية
+                    </p>
+                </div>
+
+                <div>
+                    <h4>روابط سريعة</h4>
+                    <ul class="footer-links">
+                        <li><a onclick="scrollToSection('services')">الخدمات</a></li>
+                        <li><a onclick="scrollToSection('process')">العملية</a></li>
+                        <li><a onclick="scrollToSection('contact')">التواصل</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4>تابعني على</h4>
+                    <div class="footer-socials">
+                        <a href="https://kick.com/zo3bi" target="_blank" class="footer-social-link" title="Kick">📺</a>
+                        <a href="https://www.facebook.com/gmzo3bimastr/" target="_blank" class="footer-social-link" title="Facebook">f</a>
+                        <a href="https://www.tiktok.com/@a.z43?_r=1&_t=ZS-95hXO4KZeHX" target="_blank" class="footer-social-link" title="TikTok">♪</a>
+                        <a href="https://youtube.com/@a.z43?si=TP2a0HibrqnGfCBA" target="_blank" class="footer-social-link" title="YouTube">📹</a>
+                        <a href="https://www.instagram.com/ahmad7alzoubi?igsh=MTg2bnlkMzE2ZDBu&utm_source=qr" target="_blank" class="footer-social-link" title="Instagram">📷</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-divider">
+                <p class="footer-copyright">
+                    &copy; 2024 zo3bi - Creative Excellence. جميع الحقوق محفوظة.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Function to scroll to section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Function to open Discord
+        function openDiscord() {
+            window.open('https://discord.gg/Trg3jVe5eR', '_blank');
+        }
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideIn 0.8s ease-out forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .stat-card, .process-card, .contact-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const orbs = document.querySelectorAll('.orb');
+            orbs.forEach((orb, index) => {
+                orb.style.transform = `translateY(${scrolled * (0.5 + index * 0.1)}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
